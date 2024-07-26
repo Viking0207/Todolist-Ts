@@ -15,6 +15,9 @@ const handleSubmit = (e: Event) =>{
 		completed: false
 	};
 	//Penyimpanan Todo ke local storage
+	todos.push(newTodo);
+	//Menyimpanan ke local storage
+	saveTodos();
 
 	//Menambahkan todo baru
 	appendTodo(newTodo);
@@ -23,6 +26,11 @@ const handleSubmit = (e: Event) =>{
 	inputList.value = "";
 };
 
+//Simpan todos
+const saveTodos = ()=>{
+	localStorage.setItem('todos', JSON.stringify(todos));
+}
+
 // Tampilan Todo
 interface Todo {
 	id:number,
@@ -30,15 +38,27 @@ interface Todo {
 	completed:boolean
 }
 
+//Todo array
+ const todos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
+ console.log(todos);
+//Menambahkan todos baru ke DOM untuk memulai
+window.addEventListener('DOMContentLoaded', ()=>{
+	todos.forEach(todo => appendTodo(todo));
+})
+
 //menambahkan fungsi Todo
 const appendTodo = (newTodo: Todo) =>{
 	const newLi = document.createElement('li');
 	const checkB = document.createElement('input');
 	checkB.type = "checkbox";
+	checkB.checked = newTodo.completed;
 	//Tambahkan checkbox EvLi
 	checkB.addEventListener('change', ()=>{
 		console.log("Checked");
 		newTodo.completed = checkB.checked;
+
+		//simpan todos
+		saveTodos();
 	});
 	newLi.append(newTodo.todo, checkB);
 	todoList.prepend(newLi);
