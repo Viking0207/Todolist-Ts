@@ -66,3 +66,12 @@ const appendTodo = (newTodo: Todo) =>{
 
 //menambahkan form event listener
 formTodo.addEventListener('submit', e => handleSubmit(e));
+
+//Hapus semua
+const clearTodos = ()=>{
+	todos.length = 0;
+	saveTodos();
+	todoList.innerHTML = "";
+};
+
+btnDelete.onclick = ()=> clearTodos();
