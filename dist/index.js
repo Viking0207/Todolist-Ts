@@ -16,6 +16,12 @@ const handleSubmit = (e) => {
     };
     //Penyimpanan Todo ke local storage
     //Menambahkan todo baru
+    appendTodo(newTodo);
+    //Reset Input
+    inputList.value = "";
+};
+//menambahkan fungsi Todo
+const appendTodo = (newTodo) => {
     const newLi = document.createElement('li');
     const checkB = document.createElement('input');
     checkB.type = "checkbox";
@@ -26,8 +32,6 @@ const handleSubmit = (e) => {
     });
     newLi.append(newTodo.todo, checkB);
     todoList.prepend(newLi);
-    //Reset Input
-    inputList.value = "";
 };
 //menambahkan form event listener
 formTodo.addEventListener('submit', e => handleSubmit(e));

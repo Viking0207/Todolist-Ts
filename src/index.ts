@@ -9,7 +9,7 @@ const btnDelete = document.querySelector(".todo-dltall") as HTMLButtonElement;
 const handleSubmit = (e: Event) =>{
   e.preventDefault();
 	//Membuat objek baru
-	const newTodo ={
+	const newTodo: Todo ={
 		id: Date.now(),
 		todo: inputList.value,
 		completed: false
@@ -17,6 +17,21 @@ const handleSubmit = (e: Event) =>{
 	//Penyimpanan Todo ke local storage
 
 	//Menambahkan todo baru
+	appendTodo(newTodo);
+
+	//Reset Input
+	inputList.value = "";
+};
+
+// Tampilan Todo
+interface Todo {
+	id:number,
+	todo:string,
+	completed:boolean
+}
+
+//menambahkan fungsi Todo
+const appendTodo = (newTodo: Todo) =>{
 	const newLi = document.createElement('li');
 	const checkB = document.createElement('input');
 	checkB.type = "checkbox";
@@ -27,10 +42,7 @@ const handleSubmit = (e: Event) =>{
 	});
 	newLi.append(newTodo.todo, checkB);
 	todoList.prepend(newLi);
-
-	//Reset Input
-	inputList.value = "";
-};
+}
 
 //menambahkan form event listener
 formTodo.addEventListener('submit', e => handleSubmit(e));
